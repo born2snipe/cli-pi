@@ -1,0 +1,7 @@
+usage: what-day-of-the-week [-h] [-d DATE]
+
+Determine the day of the week
+
+optional arguments:
+  -h, --help             show this help message and exit
+  -d DATE, --date DATE   The date to use when determining the day of the week (expected format: MM/dd/yyyy)
