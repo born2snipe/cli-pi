@@ -16,7 +16,7 @@
  */
 package cli.pi;
 
-import cli.pi.io.ClassPathFileReader;
+import cli.pi.io.ClasspathFileReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,13 +27,13 @@ public class AppInfo {
     private static final String DEFAULT_COMMAND_COLOR = "yellow,bold";
     private static final String DEFAULT_WARN_COLOR = "yellow,bold";
     private static final String DEFAULT_HEADING_COLOR = "green";
-    private static Properties properties = new Properties();
     private static final String FILENAME = "app-info.properties";
+    private static Properties properties = new Properties();
 
     static {
         InputStream input = null;
         try {
-            input = ClassPathFileReader.read(FILENAME);
+            input = ClasspathFileReader.read(FILENAME);
             properties.load(input);
         } catch (IOException e) {
             throw new RuntimeException("A problem occurred reading file:[" + FILENAME + "]", e);

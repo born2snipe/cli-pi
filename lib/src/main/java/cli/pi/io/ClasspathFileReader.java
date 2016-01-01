@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
-public class ClassPathFileReader {
+public class ClasspathFileReader {
     public static String readEntirely(String file) {
         InputStream input = null;
         try {

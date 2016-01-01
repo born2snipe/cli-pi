@@ -13,7 +13,7 @@
  */
 package cli.pi;
 
-import cli.pi.io.ClassPathFileReader;
+import cli.pi.io.ClasspathFileReader;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class ArgParse4jHelpColorizerTest {
 
     @Test
     public void shouldHighlightTheSectionHeadings() {
-        String result = colorizer.colorize(ClassPathFileReader.readEntirely("help-with-optional-args.txt"));
+        String result = colorizer.colorize(ClasspathFileReader.readEntirely("help-with-optional-args.txt"));
 
         assertTrue(result.contains("@|green usage:|@"));
         assertTrue(result.contains("@|green optional arguments:|@"));
