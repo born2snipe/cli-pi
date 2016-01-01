@@ -46,7 +46,7 @@ public class CliLog {
         println("@|" + AppInfo.getWarnColor() + " " + MessageFormat.format(message, args) + "|@");
     }
 
-    private void println(String message) {
+    public void println(String message) {
         System.out.println(Ansi.ansi().render(message));
     }
 }
