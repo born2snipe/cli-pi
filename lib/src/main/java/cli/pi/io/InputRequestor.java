@@ -107,15 +107,24 @@ public class InputRequestor {
     }
 
     public String askForProtectedInput(String prompt) {
+        return askForProtectedInput(prompt, String.class);
+    }
+
+    public <T> T askForProtectedInput(String prompt, Class<T> expectedInputType) {
         log.println("@|red,bold " + prompt + "|@ @|yellow,bold (required)|@");
         char[] protectedChars = console.readPassword();
 
         String protectedText = new String(protectedChars);
         if (isBlank(protectedText)) {
-            return askForProtectedInput(prompt);
+            return askForProtectedInput(prompt, expectedInputType);
         }
 
-        return protectedText;
+        InputConverter inputConverter = getInputConverterFor(expectedInputType);
+        T result = (T) inputConverter.convertFromInput(protectedText);
+        if (result == null) {
+            return askForProtectedInput(prompt, expectedInputType);
+        }
+        return result;
     }
 
     private boolean isBlank(String input) {

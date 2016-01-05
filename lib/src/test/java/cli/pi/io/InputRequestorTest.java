@@ -46,6 +46,20 @@ public class InputRequestorTest {
     }
 
     @Test
+    public void shouldKeepAskingForProtectedInputWhenTheInputProviderReturnsNull() {
+        when(console.readPassword()).thenReturn("BLUE".toCharArray(), "RED".toCharArray());
+
+        assertEquals(Color.RED, inputRequestor.askForProtectedInput("question", Color.class));
+    }
+
+    @Test
+    public void shouldAllowCustomReturnTypesForProtectedInput() {
+        when(console.readPassword()).thenReturn("RED".toCharArray());
+
+        assertEquals(Color.RED, inputRequestor.askForProtectedInput("question", Color.class));
+    }
+
+    @Test
     public void shouldAskForInputAgainIfTheInputConverterReturnsNullForRequiredInput() {
         when(console.readLine()).thenReturn("BLUE", "RED");
 
