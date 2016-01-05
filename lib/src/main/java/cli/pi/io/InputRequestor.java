@@ -105,7 +105,19 @@ public class InputRequestor {
         }
     }
 
+    public String askForProtectedInput(String prompt) {
+        log.println("@|red,bold " + prompt + "|@ @|yellow,bold (required)|@");
+        char[] protectedChars = console.readPassword();
+
+        String protectedText = new String(protectedChars);
+        if (isBlank(protectedText)) {
+            return askForProtectedInput(prompt);
+        }
+
+        return protectedText;
+    }
+
     public enum YesOrNo {
-        YES, NO;
+        YES, NO
     }
 }

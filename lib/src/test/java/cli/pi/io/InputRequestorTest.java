@@ -28,12 +28,32 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InputRequestorTest {
+    private static final char[] PASSWORD = new char[]{'a', 'b', 'c'};
     @InjectMocks
     private InputRequestor inputRequestor;
     @Mock
     private ConsoleWrapper console;
     @Mock
     private CliLog log;
+
+    @Test
+    public void shouldDisplayThePromptEachTimeAskingForProtectedInformation() {
+        when(console.readPassword()).thenReturn(new char[0], PASSWORD);
+        inputRequestor.askForProtectedInput("question");
+        verify(log, times(2)).println("@|red,bold question|@ @|yellow,bold (required)|@");
+    }
+
+    @Test
+    public void shouldKeepAskingForProtectedInputWhenNothingIsGiven() {
+        when(console.readPassword()).thenReturn(new char[0], new char[]{' '}, new char[]{'\t'}, PASSWORD);
+        assertEquals(new String(PASSWORD), inputRequestor.askForProtectedInput("question"));
+    }
+
+    @Test
+    public void shouldAllowAskingForProtectedInput() {
+        when(console.readPassword()).thenReturn(PASSWORD);
+        assertEquals(new String(PASSWORD), inputRequestor.askForProtectedInput("question"));
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldBlowUpWhenNoInputProviderIsRegisteredForClass() {
