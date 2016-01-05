@@ -20,6 +20,7 @@ import cli.pi.command.CliCommand;
 import cli.pi.command.CommandContext;
 import org.openide.util.lookup.ServiceProvider;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +30,7 @@ public class TestCliCommand extends CliCommand {
     private static final List<String> args = new ArrayList<String>();
     private static boolean executed = false;
     private static boolean explode;
+    private static File workingDir;
 
     public static void reset() {
         executed = false;
@@ -48,6 +50,10 @@ public class TestCliCommand extends CliCommand {
         return args;
     }
 
+    public static File getWorkDirectory() {
+        return workingDir;
+    }
+
     @Override
     public String getName() {
         return "test";
@@ -60,6 +66,8 @@ public class TestCliCommand extends CliCommand {
 
     @Override
     protected void executeParsedArgs(CommandContext context) {
+        workingDir = context.getWorkingDirectory();
+
         executed = true;
         if (explode) {
             throw new RuntimeException("BOOM");
@@ -67,8 +75,8 @@ public class TestCliCommand extends CliCommand {
     }
 
     @Override
-    public void execute(CliLog log, String[] args) {
+    public void execute(CliLog log, File workingDirectory, String[] args) {
         TestCliCommand.args.addAll(Arrays.asList(args));
-        super.execute(log, args);
+        super.execute(log, workingDirectory, args);
     }
 }

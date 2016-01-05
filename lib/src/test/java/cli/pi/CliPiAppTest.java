@@ -24,6 +24,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,6 +53,16 @@ public class CliPiAppTest {
     @After
     public void tearDown() throws Exception {
         System.setOut(originalOutput);
+    }
+
+    @Test
+    public void shouldPassTheWorkingDirectoryWhenACommandIsExecuted() {
+        CliPiApp.main("test");
+
+        File workDirectory = TestCliCommand.getWorkDirectory();
+        assertNotNull(workDirectory);
+        assertTrue(workDirectory.exists());
+        assertTrue(workDirectory.isDirectory());
     }
 
     @Test

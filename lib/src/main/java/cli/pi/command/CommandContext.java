@@ -16,9 +16,12 @@ package cli.pi.command;
 import cli.pi.CliLog;
 import net.sourceforge.argparse4j.inf.Namespace;
 
+import java.io.File;
+
 public class CommandContext {
     private final CliLog log;
     private final Namespace namespace;
+    private File workingDirectory;
 
     public CommandContext(CliLog log, Namespace namespace) {
         this.log = log;
@@ -31,5 +34,13 @@ public class CommandContext {
 
     public Namespace getNamespace() {
         return namespace;
+    }
+
+    public File getWorkingDirectory() {
+        return workingDirectory;
+    }
+
+    public void setWorkingDirectory(File workingDirectory) {
+        this.workingDirectory = workingDirectory;
     }
 }

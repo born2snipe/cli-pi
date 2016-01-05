@@ -23,6 +23,8 @@ import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.internal.HelpScreenException;
 
+import java.io.File;
+
 public abstract class CliCommand {
     protected ArgumentParser argsParser;
 
@@ -48,10 +50,11 @@ public abstract class CliCommand {
         executeParsedArgs(context.getLog(), context.getNamespace());
     }
 
-    public void execute(CliLog log, String... args) {
+    public void execute(CliLog log, File workingDirectory, String... args) {
         try {
 
             CommandContext context = new CommandContext(log, argsParser.parseArgs(args));
+            context.setWorkingDirectory(workingDirectory);
 
             executeParsedArgs(context);
         } catch (HelpScreenException hse) {

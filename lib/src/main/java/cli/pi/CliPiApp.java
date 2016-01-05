@@ -19,11 +19,15 @@ package cli.pi;
 import cli.pi.command.ArgsParsingException;
 import cli.pi.command.CliCommand;
 import cli.pi.command.CliCommandLocator;
+import cli.pi.io.WorkingDirectoryLocator;
+
+import java.io.File;
 
 public class CliPiApp {
     public static Exiter exiter = new Exiter();
     private static CliLog log = new CliLog();
     private static CliCommandLocator commandLocator = new CliCommandLocator();
+    private static WorkingDirectoryLocator workingDirectoryLocator = new WorkingDirectoryLocator();
 
     public static void main(String... args) {
         String commandName = "help";
@@ -36,8 +40,9 @@ public class CliPiApp {
             if (command == null) {
                 commandIsNotSupported(commandName);
             } else {
+                File workingDirectory = workingDirectoryLocator.locate();
                 String[] commandArgs = determineArgsForCommand(args);
-                command.execute(log, commandArgs);
+                command.execute(log, workingDirectory, commandArgs);
                 exiter.exit(0);
             }
         } catch (ArgsParsingException ape) {
@@ -73,7 +78,7 @@ public class CliPiApp {
 
     private static void commandIsNotSupported(String commandName) throws Exception {
         log.error("\nCommand [{0}] is not supported!\n", commandName);
-        commandLocator.locateCommand("help").execute(log);
+        commandLocator.locateCommand("help").execute(log, new File("test"));
         exiter.exit(1);
     }
 }
