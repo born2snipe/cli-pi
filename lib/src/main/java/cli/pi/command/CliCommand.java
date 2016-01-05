@@ -35,11 +35,25 @@ public abstract class CliCommand {
 
     public abstract String getDescription();
 
-    protected abstract void executeParsedArgs(CliLog log, Namespace namespace);
+    /**
+     * @see CliCommand.executeParsedArgs(CommandContext context)
+     * @deprecated This will go away in the next version.
+     */
+    @Deprecated
+    protected void executeParsedArgs(CliLog log, Namespace namespace) {
+
+    }
+
+    protected void executeParsedArgs(CommandContext context) {
+        executeParsedArgs(context.getLog(), context.getNamespace());
+    }
 
     public void execute(CliLog log, String... args) {
         try {
-            executeParsedArgs(log, argsParser.parseArgs(args));
+
+            CommandContext context = new CommandContext(log, argsParser.parseArgs(args));
+
+            executeParsedArgs(context);
         } catch (HelpScreenException hse) {
             // just eat it
         } catch (ArgumentParserException e) {

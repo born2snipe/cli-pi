@@ -41,6 +41,7 @@ public class CliPiAppTest {
     @Before
     public void setUp() throws Exception {
         TestCliCommand.reset();
+        OldTestCliCommand.reset();
         CliPiApp.exiter = exiter;
         originalOutput = System.out;
 
@@ -51,6 +52,13 @@ public class CliPiAppTest {
     @After
     public void tearDown() throws Exception {
         System.setOut(originalOutput);
+    }
+
+    @Test
+    public void shouldSupportLegacyCommands() {
+        CliPiApp.main("old-test-command");
+
+        assertTrue(OldTestCliCommand.wasExecuted());
     }
 
     @Test
