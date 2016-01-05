@@ -14,12 +14,16 @@
 package cli.pi.io;
 
 import cli.pi.CliLog;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Collections;
+import java.util.List;
 
 import static cli.pi.io.InputRequestor.YesOrNo.NO;
 import static cli.pi.io.InputRequestor.YesOrNo.YES;
@@ -35,6 +39,25 @@ public class InputRequestorTest {
     private ConsoleWrapper console;
     @Mock
     private CliLog log;
+
+    @Before
+    public void setUp() throws Exception {
+        inputRequestor.register(Color.class, new ColorInputConverter());
+    }
+
+    @Test
+    public void shouldAskForInputAgainIfTheInputConverterReturnsNullForRequiredInput() {
+        when(console.readLine()).thenReturn("BLUE", "RED");
+
+        assertEquals(Color.RED, inputRequestor.askForRequiredInput("question", Color.class));
+    }
+
+    @Test
+    public void shouldAllowCustomReturnTypesForRequiredInput() {
+        when(console.readLine()).thenReturn("RED");
+
+        assertEquals(Color.RED, inputRequestor.askForRequiredInput("question", Color.class));
+    }
 
     @Test
     public void shouldDisplayThePromptEachTimeAskingForProtectedInformation() {
@@ -172,5 +195,31 @@ public class InputRequestorTest {
         when(console.readLine()).thenReturn(null);
 
         assertEquals("default", inputRequestor.askForInput("question:", "default"));
+    }
+
+    private static enum Color {
+        RED, BLACK
+    }
+
+    private class ColorInputConverter implements InputConverter<Color> {
+
+        @Override
+        public Color convertFromInput(String input) {
+            try {
+                return Color.valueOf(input);
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
+        }
+
+        @Override
+        public String convertToString(Color value) {
+            return value.name();
+        }
+
+        @Override
+        public List<String> availableValues() {
+            return Collections.emptyList();
+        }
     }
 }

@@ -44,8 +44,7 @@ public class InputRequestor {
         assertNotNull("Please provide a NOT null default value", defaultValue);
 
         Class<?> expectedInputType = defaultValue.getClass();
-        InputConverter converter = inputConverters.get(expectedInputType);
-        assertNotNull("No input converter registered for class: " + expectedInputType.getName(), converter);
+        InputConverter converter = getInputConverterFor(expectedInputType);
 
         String options = convertToOptions(converter.availableValues());
 
@@ -87,22 +86,24 @@ public class InputRequestor {
     }
 
     public String askForRequiredInput(String prompt) {
+        return askForRequiredInput(prompt, String.class);
+    }
+
+    public <T> T askForRequiredInput(String prompt, Class<T> expectedReturnType) {
+        InputConverter converter = getInputConverterFor(expectedReturnType);
+
         log.println("@|red,bold " + prompt + "|@ @|yellow,bold (required)|@");
         String input = console.readLine();
         while (isBlank(input)) {
             input = askForRequiredInput(prompt);
         }
-        return input;
-    }
 
-    private boolean isBlank(String input) {
-        return input == null || input.trim().length() == 0;
-    }
-
-    private <T> void assertNotNull(String message, T value) {
-        if (value == null) {
-            throw new IllegalArgumentException(message);
+        T result = (T) converter.convertFromInput(input);
+        if (result == null) {
+            return askForRequiredInput(prompt, expectedReturnType);
         }
+
+        return result;
     }
 
     public String askForProtectedInput(String prompt) {
@@ -115,6 +116,22 @@ public class InputRequestor {
         }
 
         return protectedText;
+    }
+
+    private boolean isBlank(String input) {
+        return input == null || input.trim().length() == 0;
+    }
+
+    private InputConverter getInputConverterFor(Class<?> expectedInputType) {
+        InputConverter converter = inputConverters.get(expectedInputType);
+        assertNotNull("No input converter registered for class: " + expectedInputType.getName(), converter);
+        return converter;
+    }
+
+    private <T> void assertNotNull(String message, T value) {
+        if (value == null) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     public enum YesOrNo {
