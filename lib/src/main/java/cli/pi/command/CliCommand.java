@@ -30,7 +30,8 @@ public abstract class CliCommand {
 
     public CliCommand() {
         argsParser = ArgumentParsers.newArgumentParser(getName())
-                .description(getDescription());
+                .description(getDescription())
+                .defaultHelp(true);
     }
 
     public abstract String getName();
