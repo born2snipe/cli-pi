@@ -13,14 +13,13 @@
  */
 package cli.pi.example;
 
-import cli.pi.CliLog;
 import cli.pi.command.CliCommand;
+import cli.pi.command.CommandContext;
 import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.Argument;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.ArgumentType;
-import net.sourceforge.argparse4j.inf.Namespace;
 import org.openide.util.lookup.ServiceProvider;
 
 import java.text.ParseException;
@@ -49,10 +48,10 @@ public class WhatDayOfTheWeekCommand extends CliCommand {
     }
 
     @Override
-    protected void executeParsedArgs(CliLog log, Namespace namespace) {
-        Date date = namespace.get("date");
+    protected void executeParsedArgs(CommandContext context) {
+        Date date = context.getNamespace().get("date");
 
-        log.info(new SimpleDateFormat("E").format(date));
+        context.getLog().info(new SimpleDateFormat("E").format(date));
     }
 
     private class DateType implements ArgumentType<Date> {

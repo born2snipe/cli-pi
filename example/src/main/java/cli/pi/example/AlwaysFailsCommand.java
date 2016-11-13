@@ -13,9 +13,8 @@
  */
 package cli.pi.example;
 
-import cli.pi.CliLog;
 import cli.pi.command.CliCommand;
-import net.sourceforge.argparse4j.inf.Namespace;
+import cli.pi.command.CommandContext;
 import org.openide.util.lookup.ServiceProvider;
 
 @ServiceProvider(service = CliCommand.class)
@@ -31,7 +30,7 @@ public class AlwaysFailsCommand extends CliCommand {
     }
 
     @Override
-    protected void executeParsedArgs(CliLog log, Namespace namespace) {
+    protected void executeParsedArgs(CommandContext context) {
         throw new RuntimeException("BOOM");
     }
 }

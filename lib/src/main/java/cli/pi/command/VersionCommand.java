@@ -17,8 +17,6 @@
 package cli.pi.command;
 
 import cli.pi.AppInfo;
-import cli.pi.CliLog;
-import net.sourceforge.argparse4j.inf.Namespace;
 import org.openide.util.lookup.ServiceProvider;
 
 @ServiceProvider(service = CliCommand.class)
@@ -34,8 +32,7 @@ public class VersionCommand extends CliCommand {
     }
 
     @Override
-    protected void executeParsedArgs(CliLog log, Namespace namespace) {
-        log.info(AppInfo.getVersion());
+    protected void executeParsedArgs(CommandContext context) {
+        context.getLog().info(AppInfo.getVersion());
     }
-
 }

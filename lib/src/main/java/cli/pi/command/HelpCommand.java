@@ -18,7 +18,6 @@ package cli.pi.command;
 
 import cli.pi.AppInfo;
 import cli.pi.CliLog;
-import net.sourceforge.argparse4j.inf.Namespace;
 import org.openide.util.lookup.ServiceProvider;
 
 import java.util.Collection;
@@ -39,7 +38,8 @@ public class HelpCommand extends CliCommand {
     }
 
     @Override
-    protected void executeParsedArgs(CliLog log, Namespace namespace) {
+    protected void executeParsedArgs(CommandContext context) {
+        CliLog log = context.getLog();
         log.info("--------------------------------------");
         log.info("  @|" + AppInfo.getHeadingColor() + " Available Commands|@");
         log.info("--------------------------------------");

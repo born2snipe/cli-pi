@@ -17,8 +17,8 @@
 package cli.pi;
 
 import cli.pi.command.CliCommand;
+import cli.pi.command.CommandContext;
 import net.sourceforge.argparse4j.impl.Arguments;
-import net.sourceforge.argparse4j.inf.Namespace;
 import org.openide.util.lookup.ServiceProvider;
 
 @ServiceProvider(service = CliCommand.class)
@@ -41,7 +41,7 @@ public class TestCliCommandWithArgs extends CliCommand {
     }
 
     @Override
-    protected void executeParsedArgs(CliLog log, Namespace namespace) {
+    protected void executeParsedArgs(CommandContext context) {
 
     }
 }

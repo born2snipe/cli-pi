@@ -20,7 +20,6 @@ import cli.pi.CliLog;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
-import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.internal.HelpScreenException;
 
 import java.io.File;
@@ -38,18 +37,7 @@ public abstract class CliCommand {
 
     public abstract String getDescription();
 
-    /**
-     * @see CliCommand.executeParsedArgs(CommandContext context)
-     * @deprecated This will go away in the next version.
-     */
-    @Deprecated
-    protected void executeParsedArgs(CliLog log, Namespace namespace) {
-
-    }
-
-    protected void executeParsedArgs(CommandContext context) {
-        executeParsedArgs(context.getLog(), context.getNamespace());
-    }
+    protected abstract void executeParsedArgs(CommandContext context);
 
     public void execute(CliLog log, File workingDirectory, String... args) {
         try {

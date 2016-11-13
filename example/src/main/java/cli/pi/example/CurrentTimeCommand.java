@@ -13,9 +13,8 @@
  */
 package cli.pi.example;
 
-import cli.pi.CliLog;
 import cli.pi.command.CliCommand;
-import net.sourceforge.argparse4j.inf.Namespace;
+import cli.pi.command.CommandContext;
 import org.openide.util.lookup.ServiceProvider;
 
 import java.text.SimpleDateFormat;
@@ -34,7 +33,7 @@ public class CurrentTimeCommand extends CliCommand {
     }
 
     @Override
-    protected void executeParsedArgs(CliLog log, Namespace namespace) {
-        log.info(new SimpleDateFormat("HH:mm a").format(new Date()));
+    protected void executeParsedArgs(CommandContext context) {
+        context.getLog().info(new SimpleDateFormat("HH:mm a").format(new Date()));
     }
 }
