@@ -37,4 +37,11 @@ public class ArgParse4jHelpColorizerTest {
         assertFalse(result.contains("@|green   -d DATE, --date DATE   The date to use when determining the day of the week (expected format:|@"));
     }
 
+    @Test
+    public void shouldHighlightTheSectionHeadingsForPositionalArgs() {
+        String result = colorizer.colorize(ClasspathFileReader.readEntirely("help-with-positional-args.txt"));
+
+        assertTrue(result.contains("@|green positional arguments:|@"));
+    }
+
 }
