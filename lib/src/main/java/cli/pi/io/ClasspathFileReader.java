@@ -59,7 +59,7 @@ public class ClasspathFileReader {
         return new String(output.toByteArray(), Charset.forName("UTF-8"));
     }
 
-    private static class FileNotFoundInClassPathException extends RuntimeException {
+    public static class FileNotFoundInClassPathException extends RuntimeException {
         public FileNotFoundInClassPathException(String file) {
             super("Could not locate file in classpath: [" + file + "]");
         }
