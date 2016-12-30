@@ -39,6 +39,10 @@ public abstract class CliCommand {
 
     protected abstract void executeParsedArgs(CommandContext context);
 
+    public void execute(String... args) {
+        execute(new CliLog(), new File("."), args);
+    }
+
     public void execute(CliLog log, File workingDirectory, String... args) {
         try {
 
