@@ -15,12 +15,12 @@ package cli.pi.example;
 
 import cli.pi.command.CliCommand;
 import cli.pi.command.CommandContext;
-import org.openide.util.lookup.ServiceProvider;
+import org.kohsuke.MetaInfServices;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@ServiceProvider(service = CliCommand.class)
+@MetaInfServices(CliCommand.class)
 public class CurrentTimeCommand extends CliCommand {
     @Override
     public String getName() {

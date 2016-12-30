@@ -16,11 +16,11 @@ package cli.pi.example;
 import cli.pi.command.CliCommand;
 import cli.pi.command.CommandContext;
 import net.sourceforge.argparse4j.impl.Arguments;
-import org.openide.util.lookup.ServiceProvider;
+import org.kohsuke.MetaInfServices;
 
 import java.io.File;
 
-@ServiceProvider(service = CliCommand.class)
+@MetaInfServices(CliCommand.class)
 public class FileSizeCommand extends CliCommand {
     public FileSizeCommand() {
         argsParser.addArgument("FILE")

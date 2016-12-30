@@ -20,13 +20,13 @@ import net.sourceforge.argparse4j.inf.Argument;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.ArgumentType;
-import org.openide.util.lookup.ServiceProvider;
+import org.kohsuke.MetaInfServices;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@ServiceProvider(service = CliCommand.class)
+@MetaInfServices(CliCommand.class)
 public class WhatDayOfTheWeekCommand extends CliCommand {
     public WhatDayOfTheWeekCommand() {
         argsParser.addArgument("-d", "--date")

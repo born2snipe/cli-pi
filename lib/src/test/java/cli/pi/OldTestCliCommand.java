@@ -15,9 +15,9 @@ package cli.pi;
 
 import cli.pi.command.CliCommand;
 import cli.pi.command.CommandContext;
-import org.openide.util.lookup.ServiceProvider;
+import org.kohsuke.MetaInfServices;
 
-@ServiceProvider(service = CliCommand.class)
+@MetaInfServices(CliCommand.class)
 public class OldTestCliCommand extends CliCommand {
     private static boolean executed = false;
 

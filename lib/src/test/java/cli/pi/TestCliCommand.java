@@ -18,14 +18,14 @@ package cli.pi;
 
 import cli.pi.command.CliCommand;
 import cli.pi.command.CommandContext;
-import org.openide.util.lookup.ServiceProvider;
+import org.kohsuke.MetaInfServices;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@ServiceProvider(service = CliCommand.class)
+@MetaInfServices(CliCommand.class)
 public class TestCliCommand extends CliCommand {
     private static final List<String> args = new ArrayList<String>();
     private static boolean executed = false;

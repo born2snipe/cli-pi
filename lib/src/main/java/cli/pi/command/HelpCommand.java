@@ -18,12 +18,12 @@ package cli.pi.command;
 
 import cli.pi.AppInfo;
 import cli.pi.CliLog;
-import org.openide.util.lookup.ServiceProvider;
+import org.kohsuke.MetaInfServices;
 
 import java.util.Collection;
 
 
-@ServiceProvider(service = CliCommand.class)
+@MetaInfServices(CliCommand.class)
 public class HelpCommand extends CliCommand {
     private CliCommandLocator commandLocator = new CliCommandLocator();
 

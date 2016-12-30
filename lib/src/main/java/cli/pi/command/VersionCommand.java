@@ -17,9 +17,9 @@
 package cli.pi.command;
 
 import cli.pi.AppInfo;
-import org.openide.util.lookup.ServiceProvider;
+import org.kohsuke.MetaInfServices;
 
-@ServiceProvider(service = CliCommand.class)
+@MetaInfServices(CliCommand.class)
 public class VersionCommand extends CliCommand {
     @Override
     public String getName() {
