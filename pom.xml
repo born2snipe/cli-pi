@@ -9,7 +9,7 @@
 
     <groupId>com.github.born2snipe</groupId>
     <artifactId>cli-pi-aggregate</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
 
