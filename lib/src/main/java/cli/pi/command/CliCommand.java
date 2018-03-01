@@ -18,9 +18,9 @@ package cli.pi.command;
 
 import cli.pi.CliLog;
 import net.sourceforge.argparse4j.ArgumentParsers;
+import net.sourceforge.argparse4j.helper.HelpScreenException;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
-import net.sourceforge.argparse4j.internal.HelpScreenException;
 
 import java.io.File;
 
@@ -28,7 +28,8 @@ public abstract class CliCommand {
     protected ArgumentParser argsParser;
 
     public CliCommand() {
-        argsParser = ArgumentParsers.newArgumentParser(getName())
+        argsParser = ArgumentParsers.newFor(getName())
+                .build()
                 .description(getDescription())
                 .defaultHelp(true);
     }

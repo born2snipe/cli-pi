@@ -14,11 +14,11 @@
 package net.sourceforge.argparse4j.impl.action;
 
 import cli.pi.ArgParse4jHelpColorizer;
+import net.sourceforge.argparse4j.helper.HelpScreenException;
 import net.sourceforge.argparse4j.inf.Argument;
 import net.sourceforge.argparse4j.inf.ArgumentAction;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
-import net.sourceforge.argparse4j.internal.HelpScreenException;
 import org.fusesource.jansi.Ansi;
 
 import java.util.Map;
