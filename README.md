@@ -22,7 +22,7 @@ I would suggest checking out the `example` module. This is an example of how to 
 
 #### FAQ
  - Is there anyway to auto-generate the files that get put in `META-INF/services` for my `CliCommand`s ?
-    - I usually annotation my `CliCommand` implementations with the `@MetaInfServices` annotation provided in the `metainf-services` module.
+    - I usually annotate my `CliCommand` implementations with the `@MetaInfServices` annotation provided in the `metainf-services` module.
      This module contains an annotation processor that will generate the service file at compile time based on what `service` you declared in the annotation.
      So you only need this module at compile time and not runtime.
 
